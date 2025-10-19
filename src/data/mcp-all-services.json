@@ -1,0 +1,70 @@
+[
+  {
+    "Id": "2756",
+    "Name": "minimax-mcp",
+    "ChineseName": "MiniMax MCP",
+    "Abstract": "Official MiniMax Model Context Protocol (MCP) server that enables interaction with powerful Text to Speech and video/image generation APIs.",
+    "AbstractCN": "MiniMax官方模型上下文协议(MCP)服务器，支持与强大的文本转语音和视频/图像生成API交互。",
+    "Category": ["entertainment-and-multimedia"],
+    "Stars": 32,
+    "License": "MIT License",
+    "Organization": {
+      "Name": "MiniMax-AI"
+    },
+    "Path": "@MiniMax-AI",
+    "CallVolume": 132495873,
+    "ViewCount": 21382,
+    "Hosted": true
+  },
+  {
+    "Id": "1817",
+    "Name": "elasticsearch",
+    "ChineseName": "Elasticsearch",
+    "Abstract": "Elasticsearch operations MCP server that enables Claude to perform Elasticsearch operations.",
+    "AbstractCN": "Elasticsearch操作MCP服务器，使Claude能够执行Elasticsearch操作。",
+    "Category": ["developer-tools"],
+    "Stars": 12,
+    "License": "MIT License",
+    "Organization": {
+      "Name": "modelcontextprotocol"
+    },
+    "Path": "@modelcontextprotocol",
+    "CallVolume": 11524895,
+    "ViewCount": 10001,
+    "Hosted": false
+  },
+  {
+    "Id": "2430",
+    "Name": "edgeone-pages-mcp",
+    "ChineseName": "EdgeOne Pages",
+    "Abstract": "An MCP service for deploying HTML content to EdgeOne Pages and obtaining a publicly accessible URL.",
+    "AbstractCN": "基于 EdgeOne Pages 的 MCP 服务器，支持代码部署为在线页面。",
+    "Category": ["developer-tools"],
+    "Stars": 36,
+    "License": "MIT License",
+    "Organization": {
+      "Name": "TencentEdgeOne"
+    },
+    "Path": "@TencentEdgeOne",
+    "CallVolume": 3712541,
+    "ViewCount": 10149,
+    "Hosted": true
+  },
+  {
+    "Id": "1138",
+    "Name": "sequentialthinking",
+    "ChineseName": "Sequential Thinking",
+    "Abstract": "An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.",
+    "AbstractCN": "一种MCP服务器实现，它通过结构化的思维过程提供了一种动态且反射性的解决问题的工具。",
+    "Category": ["research-and-data"],
+    "Stars": 108,
+    "License": "MIT License",
+    "Organization": {
+      "Name": "modelcontextprotocol"
+    },
+    "Path": "@modelcontextprotocol",
+    "CallVolume": 31977941,
+    "ViewCount": 36498,
+    "Hosted": true
+  }
+]
