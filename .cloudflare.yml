@@ -1,0 +1,10 @@
+build:
+  command: npm run build
+  destination: out
+  node_version: 18
+
+environment:
+  NODE_VERSION: "18"
+  NPM_VERSION: "9"
+  NODE_ENV: "production"
+

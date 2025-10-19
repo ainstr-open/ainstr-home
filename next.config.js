@@ -1,33 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  // Cloudflare Pages 配置
+  // Cloudflare Pages 静态导出配置
   output: 'export',
   images: {
-    unoptimized: true, // Cloudflare Pages 不支持 Next.js Image Optimization
+    unoptimized: true,
   },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
-          },
-        ],
-      },
-    ]
-  },
+  // 静态导出不支持某些功能
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
