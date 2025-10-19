@@ -93,8 +93,8 @@ const Header: React.FC = () => {
       }}>
         {/* Logo */}
         <div className="logo-container" style={{ marginRight: '32px', cursor: 'pointer' }} onClick={() => router.push('/mcp')}>
-          <div className="logo-icon">M</div>
-          <span className="logo-text">ModelScope</span>
+          <div className="logo-icon">A</div>
+          <span className="logo-text">Ainstr</span>
         </div>
 
         {/* Main Navigation - MCP广场 & Agent专区 */}

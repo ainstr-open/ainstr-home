@@ -8,32 +8,32 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ModelScope MCP 广场 - 聚合优质MCP资源，拓展模型智能边界',
-  description: 'ModelScope MCP广场是一个专业的AI模型和服务市场，提供浏览器自动化、搜索工具、开发者工具等多种MCP服务，支持模型上下文协议，助力AI应用开发。',
-  keywords: 'ModelScope, MCP, AI模型, 模型上下文协议, 浏览器自动化, 搜索工具, 开发者工具, AI服务',
-  authors: [{ name: 'ModelScope Team' }],
-  creator: 'ModelScope',
-  publisher: 'ModelScope',
+  title: 'Ainstr MCP 广场 - 聚合优质MCP资源，拓展模型智能边界',
+  description: 'Ainstr MCP广场是一个专业的AI模型和服务市场，提供浏览器自动化、搜索工具、开发者工具等多种MCP服务，支持模型上下文协议，助力AI应用开发。',
+  keywords: 'Ainstr, MCP, AI模型, 模型上下文协议, 浏览器自动化, 搜索工具, 开发者工具, AI服务',
+  authors: [{ name: 'Ainstr Team' }],
+  creator: 'Ainstr',
+  publisher: 'Ainstr',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://modelscope.cn'),
+  metadataBase: new URL('https://ainstr.com'),
   alternates: {
     canonical: '/mcp',
   },
   openGraph: {
-    title: 'ModelScope MCP 广场',
+    title: 'Ainstr MCP 广场',
     description: '聚合优质MCP资源，拓展模型智能边界',
-    url: 'https://modelscope.cn/mcp',
-    siteName: 'ModelScope',
+    url: 'https://ainstr.com/mcp',
+    siteName: 'Ainstr',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'ModelScope MCP 广场',
+        alt: 'Ainstr MCP 广场',
       },
     ],
     locale: 'zh_CN',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ModelScope MCP 广场',
+    title: 'Ainstr MCP 广场',
     description: '聚合优质MCP资源，拓展模型智能边界',
     images: ['/og-image.jpg'],
   },
@@ -79,12 +79,12 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "ModelScope MCP 广场",
+              "name": "Ainstr MCP 广场",
               "description": "聚合优质MCP资源，拓展模型智能边界",
-              "url": "https://modelscope.cn/mcp",
+              "url": "https://ainstr.com/mcp",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://modelscope.cn/mcp?search={search_term_string}",
+                "target": "https://ainstr.com/mcp?search={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
             })

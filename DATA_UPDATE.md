@@ -6,7 +6,7 @@
 
 - **MCP服务**: 300条
 - **分类数量**: 81个
-- **数据来源**: ModelScope API
+- **数据来源**: Ainstr API
 - **数据文件**: `src/data/mcp-data.json`
 
 ### 📂 数据结构
@@ -119,5 +119,5 @@ python3 scripts/fetch_all_pages.py
 ---
 
 **最后更新**: 已获取300条服务数据
-**数据来源**: https://modelscope.cn/api/v1/dolphin/mcpServers
+**数据来源**: https://ainstr.com/api/v1/dolphin/mcpServers
 **总服务数**: 5,508

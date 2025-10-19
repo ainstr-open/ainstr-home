@@ -43,14 +43,14 @@ const PromotionalBanners: React.FC = () => {
       emoji: "🔥最新SOTA模型..."
     },
     {
-      title: "ModelScope MCP 教程与实践",
+      title: "Ainstr MCP 教程与实践",
       description: "了解和学习 MCP、观摩和交流最佳实践",
       icon: <SettingOutlined />,
       gradientClass: "banner-green",
     },
     {
-      title: "New ModelScope MCP x Siemens",
-      description: "在Xcelerator AI & API 开放平台中使用ModelScope...",
+      title: "New Ainstr MCP x Siemens",
+      description: "在Xcelerator AI & API 开放平台中使用Ainstr...",
       icon: <ThunderboltOutlined />,
       gradientClass: "banner-blue",
     }

@@ -1,4 +1,4 @@
-# ModelScope MCP广场 - 使用指南
+# Ainstr MCP广场 - 使用指南
 
 ## 🌍 多语言功能
 
@@ -53,7 +53,7 @@
 ```
 ✅ 分类数: 81个
 ✅ 服务数: 300条 (共5,510条)
-✅ 数据源: ModelScope API
+✅ 数据源: Ainstr API
 ```
 
 ### 如何更新数据
@@ -66,7 +66,7 @@ python3 scripts/fetch_all_pages.py
 
 #### 方法2: 手动更新Cookie
 
-1. 访问 https://modelscope.cn/mcp
+1. 访问 https://ainstr.com/mcp
 2. 打开浏览器开发者工具 (F12)
 3. 切换到 **Network** 标签
 4. 刷新页面

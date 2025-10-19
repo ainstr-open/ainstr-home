@@ -1,13 +1,16 @@
 {
-  "name": "modelscope-mcp-square",
+  "name": "ainstr-mcp-square",
   "version": "1.0.0",
-  "description": "ModelScope MCP Square - A marketplace for AI models and services",
+  "description": "Ainstr MCP Square - A marketplace for AI models and services",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "preview": "npm run pages:build && wrangler pages dev",
+    "deploy": "npm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
     "next": "^14.0.0",
@@ -21,9 +24,12 @@
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@cloudflare/next-on-pages": "^1.13.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0",
+    "vercel": "^33.0.0"
   }
 }
 

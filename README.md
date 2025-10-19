@@ -1,6 +1,6 @@
-# ModelScope MCP广场 - 克隆版
+# Ainstr MCP广场
 
-基于Next.js + Ant Design + Tailwind CSS 开发的ModelScope MCP广场页面，包含完整的多语言支持和SEO优化。
+基于Next.js + Ant Design + Tailwind CSS 开发的MCP广场页面，包含完整的多语言支持和SEO优化。
 
 ## ✨ 功能特性
 
@@ -16,7 +16,7 @@
   - 所有UI文本和服务描述都支持双语
 
 - ✅ **真实数据集成**
-  - 从ModelScope API获取真实MCP服务数据
+  - 从Ainstr API获取真实MCP服务数据
   - 81个分类
   - 5500+个MCP服务
   - 自动数据刷新脚本
@@ -84,7 +84,7 @@ python3 scripts/fetch_all_pages.py
 
 ### Cookie更新方法
 
-1. 访问 https://modelscope.cn/mcp
+1. 访问 https://ainstr.com/mcp
 2. 打开浏览器开发者工具 (F12)
 3. 切换到 Network 标签
 4. 刷新页面，找到 `mcpServers` 请求

@@ -40,7 +40,7 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   zh: {
-    logo: 'ModelScope',
+    logo: 'Ainstr',
     mcpSquare: 'MCP广场',
     agentZone: 'Agent专区',
     theme: '主题',
@@ -70,7 +70,7 @@ export const translations: Record<Language, Translations> = {
     enterprise: '企业合作',
   },
   en: {
-    logo: 'ModelScope',
+    logo: 'Ainstr',
     mcpSquare: 'MCP Square',
     agentZone: 'Agent Zone',
     theme: 'Theme',

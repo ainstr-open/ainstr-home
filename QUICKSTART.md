@@ -2,7 +2,7 @@
 
 ## 🎉 恭喜！项目已完成
 
-您的ModelScope MCP广场克隆版已经准备就绪，包含以下功能：
+您的Ainstr MCP广场克隆版已经准备就绪，包含以下功能：
 
 ✅ 完整的UI界面
 ✅ 真实的MCP数据（300条服务，81个分类）
@@ -37,7 +37,7 @@ npm run dev
 ✅ MCP服务: 300条
 ✅ 分类: 81个
 ✅ 总服务数: 5,510条
-✅ 数据源: ModelScope API
+✅ 数据源: Ainstr API
 ```
 
 ## 🌍 多语言功能
@@ -63,7 +63,7 @@ python3 scripts/fetch_all_pages.py
 ```
 
 **如何获取Cookie**:
-1. 访问 https://modelscope.cn/mcp
+1. 访问 https://ainstr.com/mcp
 2. F12 打开开发者工具
 3. Network标签 → 找到 `mcpServers` 请求
 4. 复制Cookie值
@@ -211,7 +211,7 @@ npm install
 
 ## 🎉 完成！
 
-您现在拥有一个功能完整的ModelScope MCP广场克隆版！
+您现在拥有一个功能完整的Ainstr MCP广场克隆版！
 
 **享受开发吧！** 🚀
 

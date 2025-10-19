@@ -2,8 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  // Cloudflare Pages 配置
+  output: 'export',
   images: {
-    domains: ['modelscope.cn', 'cdn.jsdelivr.net'],
+    unoptimized: true, // Cloudflare Pages 不支持 Next.js Image Optimization
   },
   async headers() {
     return [

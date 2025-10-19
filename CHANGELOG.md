@@ -24,19 +24,19 @@
 
 ```
 顶部导航
-├── Logo: ModelScope
+├── Logo: Ainstr
 ├── 主导航: 首页 | 模型库 | 数据集 | 创空间 | 文档 | 社区
 ├── 特殊导航: MCP广场 🚀 | Agent专区
 └── 右侧操作: 主题 | 语言 | 通知 | 搜索 | 用户
 
 Hero区域
-├── 标题: ModelScope MCP 广场
+├── 标题: Ainstr MCP 广场
 └── 副标题: 聚合优质MCP资源，拓展模型智能边界
 
 推广横幅
 ├── New MCP 实验场
-├── ModelScope MCP 教程与实践
-└── New ModelScope MCP x Siemens
+├── Ainstr MCP 教程与实践
+└── New Ainstr MCP x Siemens
 
 主内容区
 ├── 左侧: 服务分类（15个类别）

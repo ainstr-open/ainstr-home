@@ -5,8 +5,8 @@ import ServiceCategories from '@/components/ServiceCategories'
 import ServiceGrid from '@/components/ServiceGrid'
 
 export const metadata = {
-  title: 'MCP广场 - ModelScope',
-  description: 'ModelScope MCP广场，聚合优质MCP资源，拓展模型智能边界',
+  title: 'MCP广场 - Ainstr',
+  description: 'Ainstr MCP广场，聚合优质MCP资源，拓展模型智能边界',
 }
 
 export default function MCPPage() {

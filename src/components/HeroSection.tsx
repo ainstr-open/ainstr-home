@@ -8,7 +8,7 @@ const HeroSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="hero-title">
-            ModelScope MCP 广场
+            Ainstr MCP 广场
           </h1>
 
           <p className="hero-subtitle">

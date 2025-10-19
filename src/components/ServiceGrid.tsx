@@ -94,7 +94,7 @@ const ServiceGrid: React.FC = () => {
         likes: item.Stars || 0
       },
       icon: iconMap[category] || <RobotOutlined />,
-      url: `https://www.modelscope.cn/mcp/servers/${item.Path || item.Id}`,
+      url: `https://www.ainstr.com/mcp/servers/${item.Path || item.Id}`,
       rawCategory: category // 保存原始分类用于筛选
     }
   })
