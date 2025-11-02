@@ -1,6 +1,22 @@
 # robots.txt for Ainstr MCP Square
+
+# Content signals for AI training and search
+# As a condition of accessing this website, you agree to abide by the following content signals:
+# (a) If a content-signal = yes, you may collect content for the corresponding use.
+# (b) If a content-signal = no, you may not collect content for the corresponding use.
+# (c) If the website operator does not include a content signal for a corresponding use,
+#     the website operator neither grants nor restricts permission via content signal.
+
+# Content signals:
+# search: building a search index and providing search results
+# ai-input: inputting content into one or more AI models
+# ai-train: training or fine-tuning AI models
+
 User-agent: *
 Allow: /
+Content-signal: search=yes
+Content-signal: ai-train=no
+Content-signal: ai-input=yes
 
 # 允许Googlebot访问所有内容
 User-agent: Googlebot
