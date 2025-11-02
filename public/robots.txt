@@ -1,0 +1,22 @@
+# robots.txt for Ainstr MCP Square
+User-agent: *
+Allow: /
+
+# 允许Googlebot访问所有内容
+User-agent: Googlebot
+Allow: /
+
+# 允许Google图片爬虫
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemap位置
+Sitemap: https://ainstr.com/sitemap.xml
+
+# 禁止访问构建文件
+Disallow: /_next/
+Disallow: /api/
+
+# 爬取延迟（秒）
+Crawl-delay: 0
+
