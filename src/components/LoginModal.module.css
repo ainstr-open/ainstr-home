@@ -1,0 +1,377 @@
+/* LoginModal.module.css - 使用 CSS Modules */
+
+/* 模态框容器 - 两栏布局 */
+.loginModalWrapper {
+  display: flex;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+/* 左侧交互区域 */
+.loginModalLeft {
+  flex: 0 0 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  color: white;
+}
+
+.leftContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brandSection {
+  margin-bottom: 60px;
+}
+
+.brandIcon {
+  font-size: 48px;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.brandTitle {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+  color: white;
+}
+
+.brandSubtitle {
+  font-size: 18px;
+  opacity: 0.95;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.featuresList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.featureIcon {
+  font-size: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.leftFooter {
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.leftFooterText {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 右侧登录区域 */
+.loginModalRight {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+/* 本地类样式 */
+.loginModalContent {
+  padding: 48px 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.loginModalHeader {
+  margin-bottom: 40px;
+}
+
+.loginModalTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.loginModalSubtitle {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.loginButtonsContainer {
+  margin-bottom: 32px;
+}
+
+.loginButton {
+  height: 52px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+}
+
+.loginButton:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.loginButton:active {
+  transform: translateY(0);
+}
+
+.googleLoginButton:hover {
+  border-color: #4285f4;
+  background: #f8f9ff;
+}
+
+.githubLoginButton:hover {
+  border-color: #24292e;
+  background: #f6f8fa;
+}
+
+.loginButtonText {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.loginModalFooter {
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.loginPrivacyText {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+  .loginModalWrapper {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .loginModalLeft {
+    flex: 0 0 auto;
+    min-height: 200px;
+    padding: 40px 32px;
+  }
+
+  .brandSection {
+    margin-bottom: 30px;
+  }
+
+  .brandTitle {
+    font-size: 28px;
+  }
+
+  .brandSubtitle {
+    font-size: 16px;
+  }
+
+  .featuresList {
+    flex: none;
+    gap: 16px;
+  }
+
+  .featureItem {
+    font-size: 14px;
+  }
+
+  .leftFooter {
+    padding-top: 24px;
+  }
+
+  .loginModalRight {
+    flex: 1;
+  }
+
+  .loginModalContent {
+    padding: 36px 24px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .loginModalLeft {
+    min-height: 160px;
+    padding: 32px 24px;
+  }
+
+  .brandIcon {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .brandTitle {
+    font-size: 24px;
+  }
+
+  .brandSubtitle {
+    font-size: 14px;
+  }
+
+  .featuresList {
+    gap: 12px;
+  }
+
+  .featureItem {
+    font-size: 13px;
+  }
+
+  .loginModalContent {
+    padding: 32px 24px;
+  }
+
+  .loginModalTitle {
+    font-size: 24px;
+  }
+
+  .loginButton {
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+.login-modal-content {
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.login-modal-header {
+  margin-bottom: 40px;
+}
+
+.login-modal-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.login-modal-subtitle {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.login-buttons-container {
+  margin-bottom: 32px;
+}
+
+.login-button {
+  height: 52px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+}
+
+.login-button:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.login-button :global(.anticon) {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.google-login-button:hover {
+  border-color: #4285f4;
+  background: #f8f9ff;
+}
+
+.google-login-button :global(.anticon) {
+  color: #4285f4;
+}
+
+.github-login-button:hover {
+  border-color: #24292e;
+  background: #f6f8fa;
+}
+
+.github-login-button :global(.anticon) {
+  color: #24292e;
+}
+
+.login-button-text {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.login-modal-footer {
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.login-privacy-text {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .login-modal-content {
+    padding: 36px 24px;
+  }
+
+  .login-modal-title {
+    font-size: 24px;
+  }
+
+  .login-button {
+    height: 48px;
+    font-size: 15px;
+  }
+}
+

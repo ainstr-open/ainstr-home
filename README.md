@@ -41,6 +41,13 @@
   - 平板适配
   - 桌面端优化
 
+- ✅ **登录认证** (新增!)
+  - 🔐 Google OAuth 登录
+  - 🔐 GitHub OAuth 登录
+  - 💾 用户信息存储（Cloudflare D1）
+  - 🔗 多登录方式关联
+  - 👤 用户头像和菜单
+
 ## 🚀 快速开始
 
 ### 安装依赖
@@ -48,6 +55,34 @@
 ```bash
 npm install
 ```
+
+### 配置登录服务（可选）
+
+如果需要启用登录功能，请按照以下步骤配置：
+
+#### 1. 运行配置脚本
+
+```bash
+# 自动检查并创建配置文件
+./scripts/setup-auth.sh
+```
+
+#### 2. 按照快速指南配置
+
+详细配置步骤请查看：[QUICK_SETUP_AUTH.md](./QUICK_SETUP_AUTH.md)
+
+**快速配置步骤：**
+1. 创建 Google OAuth 应用
+2. 创建 GitHub OAuth 应用
+3. 配置环境变量（`.env.local` 和 `.dev.vars`）
+4. 创建 Cloudflare D1 数据库
+5. 初始化数据库 Schema
+
+**配置文档：**
+- 📖 [QUICK_SETUP_AUTH.md](./QUICK_SETUP_AUTH.md) - 快速配置指南（推荐）
+- 📖 [AUTH_SETUP.md](./AUTH_SETUP.md) - 详细的 OAuth 配置说明
+- 📖 [CLOUDFLARE_D1_SETUP.md](./CLOUDFLARE_D1_SETUP.md) - 数据库配置说明
+- 📖 [CONFIG_CHECK.md](./CONFIG_CHECK.md) - 配置检查清单
 
 ### 开发模式
 

@@ -317,6 +317,20 @@ a {
   display: flex;
   align-items: center;
   gap: 4px;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.experience-btn:hover {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.experience-btn:active {
+  transform: scale(0.98);
 }
 
 .categories-search {

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { RightOutlined } from '@ant-design/icons'
 import mcpData from '@/data/mcp-data.json'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -13,6 +14,7 @@ interface Category {
 }
 
 const ServiceCategories: React.FC = () => {
+  const router = useRouter()
   const [searchValue, setSearchValue] = useState('')
   const { language, t } = useLanguage()
   const { selectedCategory, setSelectedCategory } = useCategory()
@@ -30,11 +32,19 @@ const ServiceCategories: React.FC = () => {
     setSelectedCategory(categoryValue === selectedCategory ? '' : categoryValue)
   }
 
+  const handleExperienceClick = () => {
+    // 可以跳转到 MCP Lab 或其他体验页面
+    // 目前跳转到首页，后续可以创建专门的体验页面
+    router.push('/mcp')
+    // 可选：滚动到顶部或显示提示
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <div className="categories-sidebar">
       <div className="sidebar-header">
         <h4 className="sidebar-title">{t.mcpServices}</h4>
-        <button className="experience-btn">
+        <button className="experience-btn" onClick={handleExperienceClick}>
           {t.mcpExperience}
           <RightOutlined />
         </button>

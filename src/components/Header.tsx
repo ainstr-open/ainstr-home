@@ -13,6 +13,8 @@ import {
   RocketOutlined,
 } from '@ant-design/icons'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAuth } from '@/contexts/AuthContext'
+import LoginModal from '@/components/LoginModal'
 
 const { Header: AntHeader } = Layout
 
@@ -20,7 +22,9 @@ const Header: React.FC = () => {
   const router = useRouter()
   const pathname = usePathname()
   const [current, setCurrent] = useState('mcp')
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const { language, setLanguage, t } = useLanguage()
+  const { user, logout, isAuthenticated } = useAuth()
 
   useEffect(() => {
     // 根据当前路径设置选中的菜单项
@@ -40,12 +44,24 @@ const Header: React.FC = () => {
     { key: 'agent', label: t.agentZone },
   ]
 
-  const userMenuItems: MenuProps['items'] = [
-    { key: 'profile', label: language === 'zh' ? '个人中心' : 'Profile', icon: <UserOutlined /> },
-    { key: 'settings', label: language === 'zh' ? '设置' : 'Settings' },
-    { type: 'divider' },
-    { key: 'logout', label: language === 'zh' ? '退出登录' : 'Logout' },
-  ]
+  const handleUserMenuClick: MenuProps['onClick'] = ({ key }) => {
+    if (key === 'logout') {
+      logout()
+    } else if (key === 'profile') {
+      router.push('/profile')
+    } else if (key === 'settings') {
+      router.push('/settings')
+    }
+  }
+
+  const userMenuItems: MenuProps['items'] = isAuthenticated
+    ? [
+        { key: 'profile', label: language === 'zh' ? '个人中心' : 'Profile', icon: <UserOutlined /> },
+        { key: 'settings', label: language === 'zh' ? '设置' : 'Settings' },
+        { type: 'divider' },
+        { key: 'logout', label: language === 'zh' ? '退出登录' : 'Logout' },
+      ]
+    : []
 
   const languageMenuItems: MenuProps['items'] = [
     { key: 'zh', label: '中文' },
@@ -137,14 +153,36 @@ const Header: React.FC = () => {
             />
           </Badge>
 
-          {/* User Menu */}
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <Space style={{ cursor: 'pointer' }} className="user-menu">
-              <Avatar size="small" icon={<UserOutlined />} />
-              <span style={{ fontSize: 14, color: '#666' }}>{t.user}</span>
-              <DownOutlined style={{ fontSize: 12, color: '#999' }} />
-            </Space>
-          </Dropdown>
+          {/* User Menu / Login Button */}
+          {isAuthenticated && user ? (
+            <Dropdown
+              menu={{ items: userMenuItems, onClick: handleUserMenuClick }}
+              placement="bottomRight"
+            >
+              <Space style={{ cursor: 'pointer' }} className="user-menu">
+                <Avatar
+                  size="small"
+                  src={user.image}
+                  icon={<UserOutlined />}
+                >
+                  {user.name?.[0]?.toUpperCase()}
+                </Avatar>
+                <span style={{ fontSize: 14, color: '#666' }}>{user.name || t.user}</span>
+                <DownOutlined style={{ fontSize: 12, color: '#999' }} />
+              </Space>
+            </Dropdown>
+          ) : (
+            <Button
+              type="primary"
+              onClick={() => setLoginModalOpen(true)}
+              style={{
+                borderRadius: '6px',
+                fontWeight: 500,
+              }}
+            >
+              {language === 'zh' ? '登录/注册' : 'Sign In'}
+            </Button>
+          )}
 
           {/* Mobile Menu */}
           <Button
@@ -154,6 +192,12 @@ const Header: React.FC = () => {
           />
         </Space>
       </div>
+
+      {/* Login Modal */}
+      <LoginModal
+        open={loginModalOpen}
+        onCancel={() => setLoginModalOpen(false)}
+      />
     </AntHeader>
   )
 }

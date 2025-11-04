@@ -3,6 +3,18 @@
   "compatibility_date": "2025-10-19",
   "assets": {
     "directory": "./out"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ainstr-db",
+      "database_id": "cf43d989-c23a-48f6-80d6-a34bfeaf5690"
+    }
+  ],
+  "vars": {
+    "APP_URL": "https://ainstr.com",
+    "GOOGLE_CLIENT_ID": "871776274292-ntk0bf929u6nf8u2g9vg61cjpiq3cd2b.apps.googleusercontent.com",
+    "GITHUB_CLIENT_ID": "Ov23liOAv8SvBZyYQfNl"
   }
 }
 
