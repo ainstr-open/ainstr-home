@@ -1,7 +1,7 @@
 {
   "name": "ainstr-home",
   "version": "1.0.0",
-  "description": "Ainstr MCP Square - A marketplace for AI models and services",
+  "description": "Ainstr - A marketplace for AI models and services",
   "private": true,
   "scripts": {
     "dev": "next dev",
