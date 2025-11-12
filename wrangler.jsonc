@@ -1,9 +1,7 @@
 {
   "name": "ainstr-home",
   "compatibility_date": "2025-10-19",
-  "assets": {
-    "directory": "./out"
-  },
+  "pages_build_output_dir": "./out",
   "d1_databases": [
     {
       "binding": "DB",
