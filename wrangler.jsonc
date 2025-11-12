@@ -12,7 +12,8 @@
   "vars": {
     "APP_URL": "https://ainstr.com",
     "GOOGLE_CLIENT_ID": "871776274292-ntk0bf929u6nf8u2g9vg61cjpiq3cd2b.apps.googleusercontent.com",
-    "GITHUB_CLIENT_ID": "Ov23liOAv8SvBZyYQfNl"
+    "GITHUB_CLIENT_ID": "Ov23liOAv8SvBZyYQfNl",
+    "NEXT_PUBLIC_API_URL": "https://ainstr.com"
   }
 }
 
