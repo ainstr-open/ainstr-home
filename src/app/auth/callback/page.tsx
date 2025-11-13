@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Spin, message } from 'antd'
 import { setAuthUser } from '@/contexts/AuthContext'
@@ -8,8 +8,14 @@ import { setAuthUser } from '@/contexts/AuthContext'
 export default function AuthCallbackPage() {
   const router = useRouter()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const hasHandledRef = useRef(false)
 
   useEffect(() => {
+    if (hasHandledRef.current) {
+      return
+    }
+    hasHandledRef.current = true
+
     const handleCallback = async () => {
       try {
         const urlParams = new URLSearchParams(window.location.search)
@@ -47,7 +53,6 @@ export default function AuthCallbackPage() {
           return
         }
 
-        // 调用 Cloudflare Worker API 处理 OAuth 回调
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin
         message.info('正在处理登录信息...')
 
@@ -64,11 +69,10 @@ export default function AuthCallbackPage() {
 
         const data = await response.json()
 
-        // 保存用户信息和 token
         const userData = {
           id: data.user.id,
           name: data.user.name,
-          email: data.user.email || '', // 邮箱可能为空
+          email: data.user.email || '',
           image: data.user.image,
           provider: data.user.provider,
         }
@@ -79,14 +83,12 @@ export default function AuthCallbackPage() {
           localStorage.setItem('auth_token', data.token)
         }
 
-        // 清理临时数据
         localStorage.removeItem('oauth_state')
         localStorage.removeItem('oauth_provider')
 
         message.success('登录成功！')
         setStatus('success')
         setTimeout(() => router.push('/mcp'), 1000)
-
       } catch (error) {
         console.error('Auth callback error:', error)
         message.error('登录处理失败')
@@ -99,14 +101,16 @@ export default function AuthCallbackPage() {
   }, [router])
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '100vh',
-      flexDirection: 'column',
-      gap: '16px'
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
       <Spin size="large" />
       <div style={{ color: '#666', fontSize: '14px' }}>
         {status === 'loading' && '正在处理登录...'}

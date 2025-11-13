@@ -96,6 +96,14 @@ async function handleGoogleCallback(code: string, env: Env): Promise<UserData | 
   const clientSecret = env.GOOGLE_CLIENT_SECRET
   const redirectUri = env.GOOGLE_REDIRECT_URI || `${env.APP_URL}/auth/callback`
 
+  console.log('[OAuth][Google] incoming callback params', {
+    codeLength: code?.length,
+    clientIdPrefix: clientId ? clientId.slice(0, 10) : null,
+    hasClientSecret: Boolean(clientSecret),
+    redirectUri,
+    appUrl: env.APP_URL,
+  })
+
   // 交换 code 获取 access_token
   const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
@@ -118,12 +126,20 @@ async function handleGoogleCallback(code: string, env: Env): Promise<UserData | 
   const tokens = await tokenResponse.json()
   const accessToken = tokens.access_token
 
+  console.log('[OAuth][Google] token exchange success', {
+    hasAccessToken: Boolean(accessToken),
+    scope: tokens.scope,
+    expiresIn: tokens.expires_in,
+  })
+
   // 获取用户信息
   const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
     headers: { Authorization: `Bearer ${accessToken}` },
   })
 
   if (!userResponse.ok) {
+    const error = await userResponse.text()
+    console.error('Google userinfo fetch failed:', error)
     return null
   }
 
@@ -146,13 +162,23 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
   const clientSecret = env.GITHUB_CLIENT_SECRET
   const redirectUri = env.GITHUB_REDIRECT_URI || `${env.APP_URL}/auth/callback`
 
-  // 交换 code 获取 access_token
+  console.log('[OAuth][GitHub] incoming callback params', {
+    codeLength: code?.length,
+    clientIdPrefix: clientId ? clientId.slice(0, 10) : null,
+    hasClientSecret: Boolean(clientSecret),
+    redirectUri,
+    appUrl: env.APP_URL,
+  })
+
+  const githubHeaders = {
+    'Content-Type': 'application/json',
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'ainstr-oauth-callback',
+  }
+
   const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: githubHeaders,
     body: JSON.stringify({
       code,
       client_id: clientId,
@@ -170,28 +196,38 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
   const tokens = await tokenResponse.json()
   const accessToken = tokens.access_token
 
-  // 获取用户信息
+  console.log('[OAuth][GitHub] token exchange success', {
+    hasAccessToken: Boolean(accessToken),
+    scope: tokens.scope,
+    tokenType: tokens.token_type,
+  })
+
+  const apiHeaders = {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${accessToken}`,
+    'User-Agent': 'ainstr-oauth-callback',
+  }
+
   const userResponse = await fetch('https://api.github.com/user', {
-    headers: { Authorization: `Bearer ${accessToken}` },
+    headers: apiHeaders,
   })
 
   if (!userResponse.ok) {
+    const error = await userResponse.text()
+    console.error('GitHub user fetch failed:', error)
     return null
   }
 
   const userInfo = await userResponse.json()
 
-  // 获取用户邮箱（GitHub 可能返回 null）
   let email: string | null = userInfo.email || null
   if (!email) {
-    // 尝试从 GitHub API 获取邮箱列表
     try {
       const emailResponse = await fetch('https://api.github.com/user/emails', {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: apiHeaders,
       })
       if (emailResponse.ok) {
         const emails = await emailResponse.json()
-        // 查找主要邮箱或验证邮箱
         const primaryEmail = emails.find((e: any) => e.primary && !e.email.includes('noreply'))?.email
           || emails.find((e: any) => !e.email.includes('noreply'))?.email
           || emails[0]?.email
@@ -199,15 +235,13 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
       }
     } catch (error) {
       console.error('Failed to fetch GitHub emails:', error)
-      // 如果获取邮箱失败，email 保持为 null
     }
   }
 
-  // GitHub 邮箱可能为空，这是允许的
   return {
     provider: 'github',
     providerId: userInfo.id.toString(),
-    email: email || null, // 允许为空，用户后续可以绑定邮箱
+    email: email || null,
     name: userInfo.name || userInfo.login,
     imageUrl: userInfo.avatar_url || null,
   }
