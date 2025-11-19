@@ -15,6 +15,7 @@ interface AuthContextType {
   loading: boolean
   login: (provider: 'google' | 'github') => void
   logout: () => void
+  updateUser: (userData: User) => void
   isAuthenticated: boolean
 }
 
@@ -70,88 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     initAuth()
-
-    // 处理 OAuth 回调
-    const handleOAuthCallback = () => {
-      const urlParams = new URLSearchParams(window.location.search)
-      const code = urlParams.get('code')
-      const state = urlParams.get('state')
-      const error = urlParams.get('error')
-
-      if (error) {
-        console.error('OAuth error:', error)
-        // 清理 URL
-        window.history.replaceState({}, document.title, window.location.pathname)
-        return
-      }
-
-      if (code && state) {
-        const provider = localStorage.getItem('oauth_provider') as 'google' | 'github' | null
-        if (provider) {
-          handleOAuthCallbackCode(provider, code, state)
-            .then(() => {
-              // 清理 URL
-              window.history.replaceState({}, document.title, window.location.pathname)
-              localStorage.removeItem('oauth_provider')
-            })
-            .catch((error) => {
-              console.error('OAuth callback failed:', error)
-              // 清理 URL
-              window.history.replaceState({}, document.title, window.location.pathname)
-              localStorage.removeItem('oauth_provider')
-            })
-        }
-      }
-    }
-
-    handleOAuthCallback()
   }, [])
-
-  const handleOAuthCallbackCode = async (
-    provider: 'google' | 'github',
-    code: string,
-    state: string
-  ): Promise<User> => {
-    try {
-      // 调用 Cloudflare Worker API 处理 OAuth 回调
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin
-      const response = await fetch(`${apiUrl}/api/auth/${provider}/callback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code, state }),
-      })
-
-      if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || 'Authentication failed')
-      }
-
-      const data = await response.json()
-
-      // 保存用户信息和 token
-      const userData: User = {
-        id: data.user.id,
-        name: data.user.name,
-        email: data.user.email || '', // 邮箱可能为空
-        image: data.user.image,
-        provider: data.user.provider,
-      }
-
-      setUserData(userData)
-
-      // 保存 token 到 localStorage
-      if (data.token) {
-        localStorage.setItem('auth_token', data.token)
-      }
-
-      return userData
-    } catch (error) {
-      console.error('OAuth callback error:', error)
-      throw error
-    }
-  }
 
   const login = (provider: 'google' | 'github') => {
     // 保存 provider 信息用于回调
@@ -202,6 +122,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('user', JSON.stringify(userData))
   }
 
+  const updateUser = (userData: User) => {
+    setUserData(userData)
+  }
+
+  // 监听 localStorage 变化，以便在多个标签页之间同步用户状态
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'user' && e.newValue) {
+        try {
+          const userData = JSON.parse(e.newValue)
+          setUser(userData)
+        } catch (error) {
+          console.error('Failed to parse user data from storage:', error)
+        }
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
   return (
     <AuthContext.Provider
       value={{
@@ -209,6 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         login,
         logout,
+        updateUser,
         isAuthenticated: !!user,
       }}
     >
@@ -223,12 +165,5 @@ export function useAuth() {
     throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
-}
-
-// 导出 setUserData 供回调页面使用
-export function setAuthUser(user: User) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('user', JSON.stringify(user))
-  }
 }
 

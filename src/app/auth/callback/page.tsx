@@ -3,26 +3,40 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Spin, message } from 'antd'
-import { setAuthUser } from '@/contexts/AuthContext'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function AuthCallbackPage() {
   const router = useRouter()
+  const { updateUser } = useAuth()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
-  const hasHandledRef = useRef(false)
+  const processingRef = useRef(false)
+  const processedCodeRef = useRef<string | null>(null)
 
   useEffect(() => {
-    if (hasHandledRef.current) {
+    // 防止重复执行：如果正在处理或已经处理过这个 code，直接返回
+    if (processingRef.current) {
       return
     }
-    hasHandledRef.current = true
+
+    // 直接从 URL 读取参数，避免 useSearchParams 需要 Suspense
+    const urlParams = new URLSearchParams(window.location.search)
+    const code = urlParams.get('code')
+    const state = urlParams.get('state')
+    const error = urlParams.get('error')
+
+    // 如果已经处理过这个 code，直接返回
+    if (code && processedCodeRef.current === code) {
+      return
+    }
+
+    // 标记为正在处理
+    processingRef.current = true
+    if (code) {
+      processedCodeRef.current = code
+    }
 
     const handleCallback = async () => {
       try {
-        const urlParams = new URLSearchParams(window.location.search)
-        const code = urlParams.get('code')
-        const state = urlParams.get('state')
-        const error = urlParams.get('error')
-
         if (error) {
           message.error(`登录失败: ${error}`)
           setStatus('error')
@@ -77,7 +91,8 @@ export default function AuthCallbackPage() {
           provider: data.user.provider,
         }
 
-        setAuthUser(userData)
+        // 更新 AuthContext 中的用户信息，这样页面会立即显示
+        updateUser(userData)
 
         if (data.token) {
           localStorage.setItem('auth_token', data.token)
@@ -94,11 +109,15 @@ export default function AuthCallbackPage() {
         message.error('登录处理失败')
         setStatus('error')
         setTimeout(() => router.push('/mcp'), 2000)
+      } finally {
+        // 处理完成后重置标记
+        processingRef.current = false
       }
     }
 
     handleCallback()
-  }, [router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // 空依赖数组，只在组件挂载时执行一次
 
   return (
     <div

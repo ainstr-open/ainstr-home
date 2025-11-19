@@ -47,7 +47,7 @@ Cloudflare Pages **只有在部署了 Functions 之后才能添加环境变量**
 
 ```bash
 npx wrangler pages deploy out \
-  --project-name=ainstr-mcp-square \
+  --project-name=ainstr-home \
   --var GOOGLE_CLIENT_ID=871776274292-ntk0bf929u6nf8u2g9vg61cjpiq3cd2b.apps.googleusercontent.com \
   --var GOOGLE_CLIENT_SECRET=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 \
   --var GITHUB_CLIENT_ID=Ov23liOAv8SvBZyYQfNl \

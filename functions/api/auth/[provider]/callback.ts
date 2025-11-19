@@ -96,14 +96,6 @@ async function handleGoogleCallback(code: string, env: Env): Promise<UserData | 
   const clientSecret = env.GOOGLE_CLIENT_SECRET
   const redirectUri = env.GOOGLE_REDIRECT_URI || `${env.APP_URL}/auth/callback`
 
-  console.log('[OAuth][Google] incoming callback params', {
-    codeLength: code?.length,
-    clientIdPrefix: clientId ? clientId.slice(0, 10) : null,
-    hasClientSecret: Boolean(clientSecret),
-    redirectUri,
-    appUrl: env.APP_URL,
-  })
-
   // 交换 code 获取 access_token
   const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
@@ -119,18 +111,17 @@ async function handleGoogleCallback(code: string, env: Env): Promise<UserData | 
 
   if (!tokenResponse.ok) {
     const error = await tokenResponse.text()
-    console.error('Google token exchange failed:', error)
+    console.error('[OAuth][Google] Token exchange failed:', error)
     return null
   }
 
   const tokens = await tokenResponse.json()
   const accessToken = tokens.access_token
 
-  console.log('[OAuth][Google] token exchange success', {
-    hasAccessToken: Boolean(accessToken),
-    scope: tokens.scope,
-    expiresIn: tokens.expires_in,
-  })
+  if (!accessToken) {
+    console.error('[OAuth][Google] No access token in response')
+    return null
+  }
 
   // 获取用户信息
   const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
@@ -139,7 +130,7 @@ async function handleGoogleCallback(code: string, env: Env): Promise<UserData | 
 
   if (!userResponse.ok) {
     const error = await userResponse.text()
-    console.error('Google userinfo fetch failed:', error)
+    console.error('[OAuth][Google] User info fetch failed:', error)
     return null
   }
 
@@ -162,14 +153,6 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
   const clientSecret = env.GITHUB_CLIENT_SECRET
   const redirectUri = env.GITHUB_REDIRECT_URI || `${env.APP_URL}/auth/callback`
 
-  console.log('[OAuth][GitHub] incoming callback params', {
-    codeLength: code?.length,
-    clientIdPrefix: clientId ? clientId.slice(0, 10) : null,
-    hasClientSecret: Boolean(clientSecret),
-    redirectUri,
-    appUrl: env.APP_URL,
-  })
-
   const githubHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/vnd.github+json',
@@ -188,19 +171,18 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
   })
 
   if (!tokenResponse.ok) {
-    const error = await tokenResponse.text()
-    console.error('GitHub token exchange failed:', error)
+    const errorText = await tokenResponse.text()
+    console.error('[OAuth][GitHub] Token exchange failed:', errorText)
     return null
   }
 
   const tokens = await tokenResponse.json()
   const accessToken = tokens.access_token
 
-  console.log('[OAuth][GitHub] token exchange success', {
-    hasAccessToken: Boolean(accessToken),
-    scope: tokens.scope,
-    tokenType: tokens.token_type,
-  })
+  if (!accessToken) {
+    console.error('[OAuth][GitHub] No access token in response')
+    return null
+  }
 
   const apiHeaders = {
     Accept: 'application/vnd.github+json',
@@ -213,8 +195,8 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
   })
 
   if (!userResponse.ok) {
-    const error = await userResponse.text()
-    console.error('GitHub user fetch failed:', error)
+    const errorText = await userResponse.text()
+    console.error('[OAuth][GitHub] User fetch failed:', errorText)
     return null
   }
 
@@ -234,7 +216,7 @@ async function handleGithubCallback(code: string, env: Env): Promise<UserData | 
         email = primaryEmail || null
       }
     } catch (error) {
-      console.error('Failed to fetch GitHub emails:', error)
+      console.error('[OAuth][GitHub] Failed to fetch GitHub emails:', error)
     }
   }
 
